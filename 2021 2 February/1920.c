@@ -1,5 +1,8 @@
 #include <stdio.h>
 
+
+
+/*
 int compare(int n, int arr[], int num){
     int i;
     
@@ -33,3 +36,4 @@ int main(){
     
     return 0;
 }
+*/
