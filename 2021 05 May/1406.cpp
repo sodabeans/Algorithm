@@ -1,6 +1,9 @@
-//tried with string. did not work. gonna try with array next.
+//STL, 자료구조를 활용하자! 모를때는 질문을 한 번 읽어보자!
+//cursor 개념이 헷갈려서 처음에 틀렸는데 cursor를 print 해보는 방식으로 디버깅해서 고쳤다.
+//이번에는 linked list. 다음번에는 스택으로 도전. left right으로 나누는 방법이 있더라.
 #include <iostream>
 #include <string>
+#include <list>
 
 using namespace std;
 
@@ -9,44 +12,50 @@ int main(){
     cin.tie(NULL);
     cout.tie(NULL);
     
-    string str;
-    string in;
-    string opr;
-    int i, n, m = 0;
+    list<char> li;
+    list<char> :: iterator cursor;
+    
+    string str, opr;
+    char in;
+    int i, m = 0;
     
     cin >> str;
-    n = str.length();
     cin >> m;
+    
+    for (i = 0; i < str.length(); i++){
+        li.push_back(str[i]);
+    }
+    
+    cursor = li.end();
     
     for (i = 0; i < m; i++){
         cin >> opr;
         if (opr == "L"){
-            if (n > 0){
-                n--;
+            //left
+            if (cursor != li.begin()){
+                cursor--;
             }
         } else if (opr == "D"){
-            if (n != str.length()){
-                n++;
+            //right
+            if (cursor != li.end()){
+                cursor++;
             }
         } else if (opr == "B"){
-            // problem here
-            if (n > 1 && n == str.length()){
-                str.erase(n - 1);
-                n = str.length();
-            } else if (n > 1 && n != str.length()){
-                str.erase(n - 1);
-                n--;
-            } else if (n == 1){
-                str.erase(0);
+            //delete left
+            if (cursor != li.begin()){
+                --cursor;
+                cursor = li.erase(cursor);
             }
-        } else {
+        } else if (opr == "P"){
+            //add to right
             cin >> in;
-            str.insert(n, in);
+            li.insert(cursor, in);
         }
-        cout << str << "\n";
     }
     
-    cout << str;
+    for(cursor = li.begin(); cursor != li.end(); ++cursor){
+        cout << *cursor;
+    }
     
     return 0;
 }
