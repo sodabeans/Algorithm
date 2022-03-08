@@ -7,6 +7,7 @@ combi = []
 for i in range(1, N+1):
     for x in list(combinations(S, i)):
         combi.append(sum(x))
+        # maybe compare results so that appending to list can stop earlier
 combi = list(set(combi))
 combi.sort()
 
