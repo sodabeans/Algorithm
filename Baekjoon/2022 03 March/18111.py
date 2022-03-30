@@ -11,6 +11,15 @@ curr_height = heights[0]
 max_height = heights[-1]
 changes = list()
 
+"""
+for i in range(N):
+    field.append(list(map(int, input().split())))
+    if min(field[i]) < min_h:
+        min_h = min(field[i])
+    if max(field[i]) > max_h:
+        max_h = max(field[i])
+"""
+
 while curr_height <= max_height:
     inventory = B
     change_cnt = 0
@@ -31,5 +40,4 @@ changes.sort()
 
 ans_time, ans_height = changes[0]
 print(f'{ans_time} {ans_height}')
-
 
