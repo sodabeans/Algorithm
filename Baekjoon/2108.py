@@ -4,15 +4,15 @@ input = sys.stdin.readline
 
 
 def mode(num_list):
-    modes = list()
     cnt_list = Counter(num_list)
-    cnt = cnt_list.most_common(1)[0][1]
-    for c in cnt_list:
-        if num_list.count(c) == cnt:
-            modes.append(c)
-    if len(modes) > 1:
-        cnt = modes[1]
-    print(cnt)
+    modes = cnt_list.most_common(2)
+    if len(modes) == 1:
+        print(modes[0][0])
+    else:
+        if modes[0][1] == modes[1][1]:
+            print(modes[1][0])
+        else:
+            print(modes[0][0])
 
 
 N = int(input())
