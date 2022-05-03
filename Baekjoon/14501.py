@@ -4,21 +4,17 @@ input = sys.stdin.readline
 N = int(input())
 time = []
 price = []
-dp = [0 for _ in range(N)]
+dp = [0 for _ in range(N + 1)]
 
 for i in range(N):
     t, p = map(int, input().split())
     time.append(t)
     price.append(p)
 
-for i in range(1, N):
-    if time[i] + i < N:
-        dp[time[i] + i] = max(dp[time[i] + i - 1], price[i] + dp[i - 1])
-    elif time[i] == 1:
-        dp[i] = max(dp[i], dp[i - 1] + price[i])
+for i in range(N - 1, -1, -1):
+    if time[i] + i > N:
+        dp[i] = dp[i + 1]
+    else:
+        dp[i] = max(dp[time[i] + i] + price[i], dp[i + 1])
 
-print(dp)
-# ans = max(dp)
-# if time[-1] == 1:
-#     ans += price[-1]
-# print(ans)
+print(dp[0])
