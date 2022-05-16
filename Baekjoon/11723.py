@@ -3,28 +3,33 @@ input = sys.stdin.readline
 
 N = int(input())
 
-S = set()
+S = [0 for _ in range(20)]
 
-while N != 0:
-    N -= 1
-    input_string = input().rstrip().split()
-    if input_string[0] == 'add':
-        S.add(input_string[1])
-    elif input_string[0] == 'remove':
-        if input_string[1] in S:
-            S.remove(input_string[1])
-    elif input_string[0] == 'check':
-        if input_string[1] in S:
+for _ in range(N):
+    input_string = input().rstrip()
+
+    # those with only one word
+    if input_string == 'all':
+        S = [1 for _ in range(20)]
+        continue
+    elif input_string == 'empty':
+        S = [0 for _ in range(20)]
+        continue
+
+    # those inputs with one word and one number
+    word, num = input_string.split()
+    num = int(num) - 1
+    if word == 'add':
+        S[num] = 1
+    elif word == 'remove':
+        S[num] = 0
+    elif word == 'check':
+        if S[num]:
             print(1)
         else:
             print(0)
-    elif input_string[0] == 'toggle':
-        if input_string[1] in S:
-            S.remove(input_string[1])
+    elif word == 'toggle':
+        if S[num]:
+            S[num] = 0
         else:
-            S.add(input_string[1])
-    elif input_string[0] == 'all':
-        S = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20}
-    elif input_string[0] == 'empty':
-        S = set()
-        
+            S[num] = 1
