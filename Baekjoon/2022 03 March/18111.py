@@ -1,43 +1,26 @@
 import sys
 input = sys.stdin.readline
 
-N, M, B = map(int, input().split())
+N, M, B = map(int, input().split())  # row, column, blocks
+ground = list(list(map(int, input().split())) for _ in range(N))  # starting ground heights
 
-heights = [list(map(int, input().rstrip().split())) for _ in range(N)]
-heights = sum(heights, [])
+ans_time = 1000000000
+ans_height = 0
 
-heights.sort()
-curr_height = heights[0]
-max_height = heights[-1]
-changes = list()
+for curr_height in range(257):  # maximum height is 256
+    remove_cnt = 0
+    add_cnt = 0
+    for i in range(N):
+        for j in range(M):
+            if ground[i][j] > curr_height:  # remove. add to inventory. 2 sec
+                remove_cnt += ground[i][j] - curr_height
+            else:  # add. remove from inventory. 1 sec
+                add_cnt -= ground[i][j] - curr_height  # negative number, so subtract
 
-"""
-for i in range(N):
-    field.append(list(map(int, input().split())))
-    if min(field[i]) < min_h:
-        min_h = min(field[i])
-    if max(field[i]) > max_h:
-        max_h = max(field[i])
-"""
+    if remove_cnt + B >= add_cnt:
+        curr_time = remove_cnt * 2 + add_cnt
+        if curr_time <= ans_time:  # if time is shorter or same
+            ans_height = curr_height   # if same time, answer should update to higher height
+            ans_time = curr_time
 
-while curr_height <= max_height:
-    inventory = B
-    change_cnt = 0
-    time = 0
-    for i in range(N * M):
-        if heights[i] > curr_height:
-            inventory = inventory + heights[i] - curr_height
-            time += 2
-        elif heights[i] < curr_height:
-            inventory = inventory - (heights[i] - curr_height)
-            time += 1
-
-    if inventory >= 0:
-        changes.append((time, curr_height))
-    curr_height += 1
-
-changes.sort()
-
-ans_time, ans_height = changes[0]
 print(f'{ans_time} {ans_height}')
-
