@@ -7,7 +7,8 @@ graph = [list(map(int, input().split())) for _ in range(M)]
 
 
 def BellmanFord(start):
-    distance = [float('inf') for _ in range(N)]
+    distance = [float('inf') for _ in range(N+1)]
+    flag = [False for _ in range(N+1)]
     distance[start] = 0
 
     for i in range(M):
@@ -16,11 +17,15 @@ def BellmanFord(start):
                 distance[B] = distance[A] + C
 
     for [A, B, C] in graph:
-        if distance[A] != float("inf") and distance[A] + C < distance[B]:
-            distance[B] = -1
+        if distance[A] + C < distance[B]:
+            print(-1)
+            exit()
 
-    for i in range(N):
-        print(distance[i])
+    for i in range(2, N+1):
+        if distance[i] == float('inf'):
+            print(-1)
+        else:
+            print(distance[i])
 
 
 BellmanFord(1)
