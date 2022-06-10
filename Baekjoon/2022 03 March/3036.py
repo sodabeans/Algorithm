@@ -2,7 +2,6 @@
 # time: 136 ms
 
 from fractions import Fraction
-
 import sys
 
 N = int(sys.stdin.readline())
