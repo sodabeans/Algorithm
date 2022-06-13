@@ -9,8 +9,6 @@ def gcd(a, b):
     else:
         return gcd(b, a % b)
 
-"""
-"""
 https://www.geeksforgeeks.org/gcd-in-python/
 
 2) Using math
@@ -19,7 +17,6 @@ time: 72 ms
 
 import math
 math.gcd()
-
 
 3) Euclidean algorithm
 memory: 30860 KB
@@ -30,10 +27,6 @@ def gcd(a, b):
         a, b = b, a % b
     return a
 
-
-"""
-
-"""
 4) using combinations instead of 2 loops
 memory: 30860 KB
 time: 72 ms
@@ -51,13 +44,14 @@ def gcd(a, b):
     else:
         return gcd(b, a % b)
 
+
 for _ in range(int(input())):
-    sum = 0
+    total_sum = 0
     case = list(map(int, input().split()))
     length = case.pop(0)
     case.sort()
     for i in range(length):
         for j in range(i):
-            sum = sum + gcd(case[i], case[j])
+            total_sum = total_sum + gcd(case[i], case[j])
 
-    print(sum)
+    print(total_sum)
