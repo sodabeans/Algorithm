@@ -7,25 +7,20 @@ nums.sort()
 curr = []
 visited = [0] * (N + 1)
 
-ans = list()
-
 
 def selection(depth):
     if depth == M:
-        if curr not in ans:
-            ans.append(curr.copy())
+        print(' '.join(map(str, curr)))
         return
+    prev = 0
     for i in range(N):
-        if not visited[i]:
+        if not visited[i] and prev != nums[i]:
             visited[i] = 1
-            curr.append(nums[i])
+            prev = nums[i]
+            curr.append(prev)
             selection(depth + 1)
             curr.pop()
             visited[i] = 0
 
 
 selection(0)
-
-
-for element in ans:
-    print(' '.join(map(str, element)))
