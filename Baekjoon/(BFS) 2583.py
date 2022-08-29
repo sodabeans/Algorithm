@@ -35,4 +35,5 @@ for x in range(N):
             ans.append(cnt)
 
 ans.sort()
+print(len(ans))
 print(" ".join(map(str, ans)))
