@@ -10,5 +10,4 @@ def recursion_fibonacci(num):
 
 
 n = int(input())
-dp = [0 for _ in range(n)]
 print(f'{recursion_fibonacci(n)} {n - 2}')
