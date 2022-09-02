@@ -8,18 +8,13 @@ for _ in range(T):
     if x1 == x2 and y1 == y2:
         if r1 == r2:
             print(-1)
-            continue
         else:
             print(0)
-            continue
     else:
         a = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
         if r1 + r2 < a or abs(r1 - r2) > a:
             print(0)
-            continue
-        elif r1 + r2 == a:
+        elif r1 + r2 == a or abs(r1 - r2) == a:
             print(1)
-            continue
         else:
             print(2)
-            continue
