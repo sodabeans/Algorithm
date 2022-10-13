@@ -1,31 +1,17 @@
 import sys
 input = sys.stdin.readline
 
-n, m = map(int, input().split())
-m = min(m, n - m)
-cnt_2 = 0
-cnt_5 = 0
 
-for idx in range(1, m + 1):
-    upper = n - idx + 1
-    lower = idx
-    while True:
-        if upper % 2 == 0:
-            upper = upper // 2
-            cnt_2 += 1
-        elif upper % 5 == 0:
-            upper = upper // 5
-            cnt_5 += 1
-        else:
-            break
-    while True:
-        if lower % 2 == 0:
-            lower = lower // 2
-            cnt_2 -= 1
-        elif lower % 5 == 0:
-            lower = lower // 5
-            cnt_5 -= 1
-        else:
-            break
+def cnt_two_or_five(num, div):
+    cnt = 0
+    while num > 0:
+        num = num // div
+        cnt += num
+    return cnt
+
+
+n, m = map(int, input().split())
+cnt_2 = cnt_two_or_five(n, 2) - cnt_two_or_five(m, 2) - cnt_two_or_five(n - m, 2)
+cnt_5 = cnt_two_or_five(n, 5) - cnt_two_or_five(m, 5) - cnt_two_or_five(n - m, 5)
 
 print(min(cnt_2, cnt_5))
