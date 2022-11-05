@@ -1,4 +1,3 @@
-# Timeout in 1 case
 import itertools
 
 def solution(user_id, banned_id):
@@ -16,9 +15,7 @@ def solution(user_id, banned_id):
                     flag = False
                     break
             if flag:
-                cases[i].append(idx)                
-    print(cases)
-    possible = set([_ for _ in itertools.product(*cases)])
-    possible = [tuple(set(_)) for _ in possible if len(set(_)) == len(banned_id)]
-    return len(set(possible))
-  
+                cases[i].append(idx)
+    possible = (set(_) for _ in itertools.product(*cases))
+    possible = set(tuple(set(_)) for _ in possible if len(set(_)) == len(banned_id))
+    return len(possible)
