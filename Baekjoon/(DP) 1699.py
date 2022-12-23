@@ -3,13 +3,15 @@ input = sys.stdin.readline
 
 N = int(input())
 dp = [0] * (N + 1)
-power = 1
+options = []
+for i in range(N):
+    if i ** 2 <= N:
+        options.append(i ** 2)
 
-for idx in range(1, N + 1):
-    if (idx ** 0.5).is_integer():
-        dp[idx] = 1
-        power = idx
-    else:
-        dp[idx] = dp[idx - power] + dp[power]
+for i in range(len(options)):
+    curr = options[i]
+    dp[curr] = 1
+    for j in range(curr + 1, N + 1):
+        dp[j] = dp[j - curr] + 1
 
-print(dp[N])
+print(dp[-1])
