@@ -1,24 +1,19 @@
-from collections import deque
 import sys
 input = sys.stdin.readline
 
 N = int(input())
 board = [list(map(int, input().split())) for _ in range(N)]
 dp = [[0 for _ in range(N)] for _ in range(N)]
+dp[0][0] = 1
 
-queue = deque()
-queue.append((0, 0))
-
-while queue:
-    curr_x, curr_y = queue.popleft()
-    value = board[curr_x][curr_y]
-    if value == 0:
-        continue
-    if curr_x + value < N and dp[curr_x + value][curr_y] == 0:
-        dp[curr_x + value][curr_y] += dp[curr_x][curr_y] + 1
-        queue.append((curr_x + value, curr_y))
-    if curr_y + value < N and dp[curr_x][curr_y + value] == 0:
-        dp[curr_x][curr_y + value] += dp[curr_x][curr_y] + 1
-        queue.append((curr_x, curr_y + value))
+for i in range(N):
+    for j in range(N):
+        curr = board[i][j]
+        if curr == 0:
+            continue
+        if i + curr < N:
+            dp[i + curr][j] += dp[i][j]
+        if j + curr < N:
+            dp[i][j + curr] += dp[i][j]
 
 print(dp[-1][-1])
