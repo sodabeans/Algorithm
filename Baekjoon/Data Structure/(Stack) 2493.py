@@ -4,21 +4,16 @@ input = sys.stdin.readline
 N = int(input())
 tower = list(map(int, input().split()))
 answer = [0] * N
-idx = N - 1
-curr_tower = N - 1
-prev = tower.pop()
+ans = []
 
-while tower:
+while len(tower) > 1:
     curr = tower.pop()
-    if prev < curr:
-        for i in range(idx, N):
-            if answer[i] != 0:
-                break
-            answer[i] = idx
-        prev = curr
-        idx -= 1
-    else:
-        idx -= 1
-        prev = max(prev, curr)
-
-print(answer)
+    flag = True
+    for i in range(len(tower) - 1, -1, -1):
+        if tower[i] > curr:
+            answer[len(tower)] = i + 1
+            flag = False
+            break
+    if flag:
+        answer[len(tower)] = 0
+print(*answer)
