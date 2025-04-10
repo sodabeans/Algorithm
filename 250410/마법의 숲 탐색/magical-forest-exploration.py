@@ -144,7 +144,7 @@ for current_turn in range(1, K + 1):
 
     place_the_cross(final_r, final_c, final_d, current_turn)
 
-    if final_r < 2:
+    if final_r <= 2:
         grid = [[0] * C for _ in range(R + 2)]
         continue
     else:
