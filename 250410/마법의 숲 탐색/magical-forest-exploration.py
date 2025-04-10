@@ -86,7 +86,7 @@ def BFS(center_r, center_c):
                     visited[new_r][new_c] = 1
                     queue.append((new_r, new_c))
                     max_row = max(max_row, new_r)
-                elif current_idx < 0 and grid[new_r][new_c] != 0:
+                if current_idx < 0 and grid[new_r][new_c] != 0:
                     visited[new_r][new_c] = 1
                     queue.append((new_r, new_c))
                     max_row = max(max_row, new_r)
