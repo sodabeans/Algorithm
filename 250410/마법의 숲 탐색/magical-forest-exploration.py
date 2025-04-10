@@ -138,7 +138,8 @@ def repeat_rotation(r, c, d):
 
 
 answer = 0
-for current_turn in range(1, K + 1):
+current_turn = 1
+for _ in range(K):
     c_i, d_i = map(int, input().split())
     c_i -= 1
     r_i = check_row_number_of_column(c_i)
@@ -148,9 +149,11 @@ for current_turn in range(1, K + 1):
     place_the_cross(final_r, final_c, final_d, current_turn)
 
     if final_r <= 2:
+        current_turn = 1
         grid = [[0] * C for _ in range(R + 2)]
         continue
     else:
+        current_turn += 1
         answer += BFS(final_r, final_c) - 1
         # print(current_turn)
         # print(answer)
