@@ -37,7 +37,7 @@ def rotate_west(r, c, d):
     # 서쪽으로 회전할 수 있다면
     r += 1
     c -= 1
-    d -= 1
+    d = (d - 1 + 4) % 4
     return [r, c, d]
 
 
@@ -51,21 +51,22 @@ def rotate_east(r, c, d):
     # 동쪽으로 회전할 수 있다면
     r += 1
     c += 1
-    d += 1
+    d = (d + 1 + 4) % 4
     return [r, c, d]
 
 
 def place_the_cross(center_r, center_c, exit_dir, turn):
     grid[center_r][center_c] = turn
+    # print(center_r, center_c, exit_dir, turn)
     for dir_idx in range(4):
         dr, dc = directions[dir_idx]
         nr = center_r + dr
         nc = center_c + dc
-        if (0 <= nr < (R + 2)) and (0 <= nc < C):
-            if dir_idx == exit_dir:
-                grid[nr][nc] = (-1) * turn
-            else:
-                grid[nr][nc] = turn
+        # if (0 <= nr < (R + 2)) and (0 <= nc < C):
+        if dir_idx == exit_dir:
+            grid[nr][nc] = (-1) * turn
+        else:
+            grid[nr][nc] = turn
 
 
 def BFS(center_r, center_c):
@@ -86,12 +87,14 @@ def BFS(center_r, center_c):
                     visited[new_r][new_c] = 1
                     queue.append((new_r, new_c))
                     max_row = max(max_row, new_r)
-                if current_idx < 0 and grid[new_r][new_c] != 0:
+                elif current_idx < 0 and grid[new_r][new_c] != 0 and visited[new_r][new_c] == 0:
                     visited[new_r][new_c] = 1
                     queue.append((new_r, new_c))
                     max_row = max(max_row, new_r)
+    # print("visited")
     # for row in visited:
     #     print(row)
+    # print()
     return max_row
 
 
@@ -149,5 +152,10 @@ for current_turn in range(1, K + 1):
         continue
     else:
         answer += BFS(final_r, final_c) - 1
+        # print(current_turn)
+        # print(answer)
+        # for row in grid:
+        #     print(row)
+
 
 print(answer)
